@@ -1,13 +1,14 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace LIW.Membership.Database.Enteties
 {
 	public class Director : IEntity
 	{
 		public int Id { get; set; }
+
+		[MaxLength(50)]
+		public string Name { get; set; }
+
+		public virtual ICollection<Film> Films { get; set; } //En regisör kan ha fler filmer 
 	}
 }

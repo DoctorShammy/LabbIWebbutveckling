@@ -1,13 +1,15 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿
 
 namespace LIW.Membership.Database.Enteties
 {
-	public class SimilarFilmscs : IEntity
+	public class SimilarFilmscs
 	{
-		public int Id { get; set; }
+		public int ParentFilmId { get; set; }
+
+		public int SimilarFilmId { get; set; }
+
+		public virtual Film Film { get; set; }
+
+
 	}
 }

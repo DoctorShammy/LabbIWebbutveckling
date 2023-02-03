@@ -1,4 +1,9 @@
+using LIW.Membership.Database;
+using Microsoft.EntityFrameworkCore;
+
 var builder = WebApplication.CreateBuilder(args);
+
+ConfigureServices();
 
 // Add services to the container.
 
@@ -36,4 +41,9 @@ void ConfigureServices()
 			   .AllowAnyMethod()
 		);
 	});
+
+	builder.Services.AddDbContext<LIWContext>(
+	options => options.UseSqlServer(
+	 builder.Configuration.GetConnectionString("LIWConnection")));
+
 }
