@@ -2,19 +2,40 @@ using AutoMapper;
 using LIW.Common.DTOs;
 using LIW.Membership.Database;
 using LIW.Membership.Database.Enteties;
-using LIW.Membership.Database.Services;
 using Microsoft.EntityFrameworkCore;
-using Microsoft.EntityFrameworkCore.Metadata.Internal;
-using static System.Collections.Specialized.BitVector32;
 
 var builder = WebApplication.CreateBuilder(args);
 
-ConfigureServices();
+// Add services to the container.
+
+/*builder.Services.AddControllers();
+// Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+builder.Services.AddEndpointsApiExplorer();
+builder.Services.AddSwaggerGen();
+*/
 ConfigureAutoMapper();
+ConfigureServices();
+var app = builder.Build();
+
+ConfigureMiddleware();
+
+/*// Configure the HTTP request pipeline.
+if (app.Environment.IsDevelopment())
+{
+    app.UseSwagger();
+    app.UseSwaggerUI();
+}
+
+app.UseHttpsRedirection();
+
+app.UseAuthorization();
+
+app.MapControllers();
+
+app.Run();*/
 
 void ConfigureMiddleware()
 {
-    var app = builder.Build();
 
     if (app.Environment.IsDevelopment())
     {
@@ -32,9 +53,13 @@ void ConfigureMiddleware()
 
     app.Run();
 }
-
 void ConfigureServices()
 {
+    builder.Services.AddControllers();
+    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
+    builder.Services.AddEndpointsApiExplorer();
+    builder.Services.AddSwaggerGen();
+
     builder.Services.AddCors(policy =>
     {
         policy.AddPolicy("CorsAllAccessPolicy", opt =>
@@ -43,11 +68,6 @@ void ConfigureServices()
                .AllowAnyMethod()
         );
     });
-
-    builder.Services.AddControllers();
-    // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
-    builder.Services.AddEndpointsApiExplorer();
-    builder.Services.AddSwaggerGen();
 
     builder.Services.AddDbContext<LIWContext>(
     options => options.UseSqlServer(
@@ -58,10 +78,8 @@ void ConfigureServices()
 
 void ConfigureAutoMapper()
 {
-    var config = new AutoMapper.MapperConfiguration(cfg =>
+    var config = new MapperConfiguration(cfg =>
     {
-        var config = new MapperConfiguration(cfg =>
-        {
             cfg.CreateMap<Director, DirectorDTO>().ReverseMap();
             cfg.CreateMap<Film, FilmDTO>().ReverseMap();
             cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
@@ -69,11 +87,10 @@ void ConfigureAutoMapper()
             cfg.CreateMap<SimilarFilmscs, SimilarFilmsDTO>().ReverseMap();
             //cfg.CreateMap<FilmCreateDTO, Film>();
             //cfg.CreateMap<FilmEditDTO, Film>();
-        });
 
-        var mapper = config.CreateMapper();
+/*        var mapper = config.CreateMapper();
         builder.Services.AddSingleton(mapper);
-
+*/
         //cfg.CreateMap<VideoEditDTO, Video>();
         //cfg.CreateMap<VideoCreateDTO, Video>();
 
@@ -85,6 +102,5 @@ void ConfigureAutoMapper()
     var mapper = config.CreateMapper();
     builder.Services.AddSingleton(mapper);
 
-    var app = builder.Build();
+    //var app = builder.Build();
 }
-

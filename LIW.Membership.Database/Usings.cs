@@ -6,3 +6,6 @@ global using System.Collections.Generic;
 global using System.Linq;
 global using System.Text;
 global using System.Threading.Tasks;
+global using LIW.Membership.Database.Enteties;
+global using LIW.Common.DTOs;
+global using LIW.Membership.Database.Services;

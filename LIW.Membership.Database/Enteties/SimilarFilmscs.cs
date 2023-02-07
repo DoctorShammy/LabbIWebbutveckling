@@ -1,15 +1,18 @@
 ﻿
 
+using System.ComponentModel.DataAnnotations.Schema;
+
 namespace LIW.Membership.Database.Enteties
 {
 	public class SimilarFilmscs
 	{
-		public int ParentFilmId { get; set; }
+        public int FilmId { get; set; }
+        public int SimilarFilmId { get; set; }
 
-		public int SimilarFilmId { get; set; }
+        public virtual Film Film { get; set; } = null!;
+        [ForeignKey("SimilarFilmId")]
+        public virtual Film Similar { get; set; } = null!;
 
-		public virtual Film Film { get; set; }
 
-
-	}
+    }
 }

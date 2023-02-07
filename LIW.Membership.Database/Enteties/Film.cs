@@ -4,9 +4,16 @@ namespace LIW.Membership.Database.Enteties
 {
 	public class Film : IEntity
 	{
-		public int Id { get; set; }
 
-		[MaxLength(50)]
+        public Film()
+        {
+            SimilarFilms = new HashSet<SimilarFilmscs>();
+            Genres = new HashSet<Genre>();
+        }
+
+        public int Id { get; set; }
+
+		[MaxLength(50),Required]
 		public string Title { get; set; }
 
 		public DateTime Released { get; set; }
@@ -22,9 +29,9 @@ namespace LIW.Membership.Database.Enteties
 		[MaxLength(1024)]
 
 		public string FilmUrl { get; set; }
+        public virtual ICollection<SimilarFilmscs> SimilarFilms { get; set; }
+        public virtual ICollection<Genre> Genres { get; set; }
+        public virtual Director Director { get; set; } = null!;
 
-		public virtual ICollection<FilmGenre> FilmGenres { get; set; } //En film kan ha flera genre 
-		public virtual ICollection<SimilarFilmscs> SimilarFilmscss { get; set; }
-
-	}
+    }
 }

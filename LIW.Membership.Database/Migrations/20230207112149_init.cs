@@ -6,7 +6,7 @@ using Microsoft.EntityFrameworkCore.Migrations;
 namespace LIW.Membership.Database.Migrations
 {
     /// <inheritdoc />
-    public partial class innit : Migration
+    public partial class init : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -58,7 +58,7 @@ namespace LIW.Membership.Database.Migrations
                         column: x => x.DirectorId,
                         principalTable: "Directors",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
@@ -76,32 +76,36 @@ namespace LIW.Membership.Database.Migrations
                         column: x => x.FilmId,
                         principalTable: "Films",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                     table.ForeignKey(
                         name: "FK_FilmGenres_Genres_GenreId",
                         column: x => x.GenreId,
                         principalTable: "Genres",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateTable(
                 name: "SimilarFilms",
                 columns: table => new
                 {
-                    ParentFilmId = table.Column<int>(type: "int", nullable: false),
-                    SimilarFilmId = table.Column<int>(type: "int", nullable: false),
-                    FilmId = table.Column<int>(type: "int", nullable: false)
+                    FilmId = table.Column<int>(type: "int", nullable: false),
+                    SimilarFilmId = table.Column<int>(type: "int", nullable: false)
                 },
                 constraints: table =>
                 {
-                    table.PrimaryKey("PK_SimilarFilms", x => new { x.ParentFilmId, x.SimilarFilmId });
+                    table.PrimaryKey("PK_SimilarFilms", x => new { x.FilmId, x.SimilarFilmId });
                     table.ForeignKey(
                         name: "FK_SimilarFilms_Films_FilmId",
                         column: x => x.FilmId,
                         principalTable: "Films",
+                        principalColumn: "Id");
+                    table.ForeignKey(
+                        name: "FK_SimilarFilms_Films_SimilarFilmId",
+                        column: x => x.SimilarFilmId,
+                        principalTable: "Films",
                         principalColumn: "Id",
-                        onDelete: ReferentialAction.Restrict);
+                        onDelete: ReferentialAction.Cascade);
                 });
 
             migrationBuilder.CreateIndex(
@@ -115,9 +119,9 @@ namespace LIW.Membership.Database.Migrations
                 column: "DirectorId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SimilarFilms_FilmId",
+                name: "IX_SimilarFilms_SimilarFilmId",
                 table: "SimilarFilms",
-                column: "FilmId");
+                column: "SimilarFilmId");
         }
 
         /// <inheritdoc />

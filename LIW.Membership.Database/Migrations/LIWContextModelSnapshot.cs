@@ -91,7 +91,7 @@ namespace LIW.Membership.Database.Migrations
 
                     b.HasIndex("GenreId");
 
-                    b.ToTable("FilmGenres");
+                    b.ToTable("FilmGenres", (string)null);
                 });
 
             modelBuilder.Entity("LIW.Membership.Database.Enteties.Genre", b =>
@@ -114,76 +114,66 @@ namespace LIW.Membership.Database.Migrations
 
             modelBuilder.Entity("LIW.Membership.Database.Enteties.SimilarFilmscs", b =>
                 {
-                    b.Property<int>("ParentFilmId")
+                    b.Property<int>("FilmId")
                         .HasColumnType("int");
 
                     b.Property<int>("SimilarFilmId")
                         .HasColumnType("int");
 
-                    b.Property<int>("FilmId")
-                        .HasColumnType("int");
+                    b.HasKey("FilmId", "SimilarFilmId");
 
-                    b.HasKey("ParentFilmId", "SimilarFilmId");
-
-                    b.HasIndex("FilmId");
+                    b.HasIndex("SimilarFilmId");
 
                     b.ToTable("SimilarFilms");
                 });
 
             modelBuilder.Entity("LIW.Membership.Database.Enteties.Film", b =>
                 {
-                    b.HasOne("LIW.Membership.Database.Enteties.Director", null)
-                        .WithMany("Films")
+                    b.HasOne("LIW.Membership.Database.Enteties.Director", "Director")
+                        .WithMany()
                         .HasForeignKey("DirectorId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
+
+                    b.Navigation("Director");
                 });
 
             modelBuilder.Entity("LIW.Membership.Database.Enteties.FilmGenre", b =>
                 {
-                    b.HasOne("LIW.Membership.Database.Enteties.Film", "Film")
-                        .WithMany("FilmGenres")
+                    b.HasOne("LIW.Membership.Database.Enteties.Film", null)
+                        .WithMany()
                         .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.HasOne("LIW.Membership.Database.Enteties.Genre", "Genre")
-                        .WithMany("FilmGenres")
+                    b.HasOne("LIW.Membership.Database.Enteties.Genre", null)
+                        .WithMany()
                         .HasForeignKey("GenreId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
-
-                    b.Navigation("Film");
-
-                    b.Navigation("Genre");
                 });
 
             modelBuilder.Entity("LIW.Membership.Database.Enteties.SimilarFilmscs", b =>
                 {
                     b.HasOne("LIW.Membership.Database.Enteties.Film", "Film")
-                        .WithMany("SimilarFilmscss")
+                        .WithMany("SimilarFilms")
                         .HasForeignKey("FilmId")
-                        .OnDelete(DeleteBehavior.Restrict)
+                        .IsRequired();
+
+                    b.HasOne("LIW.Membership.Database.Enteties.Film", "Similar")
+                        .WithMany()
+                        .HasForeignKey("SimilarFilmId")
+                        .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("Film");
-                });
 
-            modelBuilder.Entity("LIW.Membership.Database.Enteties.Director", b =>
-                {
-                    b.Navigation("Films");
+                    b.Navigation("Similar");
                 });
 
             modelBuilder.Entity("LIW.Membership.Database.Enteties.Film", b =>
                 {
-                    b.Navigation("FilmGenres");
-
-                    b.Navigation("SimilarFilmscss");
-                });
-
-            modelBuilder.Entity("LIW.Membership.Database.Enteties.Genre", b =>
-                {
-                    b.Navigation("FilmGenres");
+                    b.Navigation("SimilarFilms");
                 });
 #pragma warning restore 612, 618
         }

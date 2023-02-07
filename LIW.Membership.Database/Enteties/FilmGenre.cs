@@ -9,9 +9,9 @@ namespace LIW.Membership.Database.Enteties
 
 		public int GenreId { get; set; }
 
-		public virtual Film Film { get; set; }
+		//public virtual Film Film { get; set; }
 
-		public virtual Genre Genre { get; set; }
+		//public virtual Genre Genre { get; set; }
 	
 	}
 }
