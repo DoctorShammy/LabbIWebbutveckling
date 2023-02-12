@@ -13,6 +13,11 @@ namespace LIW.Common.DTOs
 
 		public string Name { get; set; }
 
-		public List<FilmDTO> Films { get; set; } = new();
+		//public List<FilmDTO> Films { get; set; } = new();
 	}
+
+    public class DirectorCreateDTO
+    {
+        public string Name { get; set; }
+    }
 }

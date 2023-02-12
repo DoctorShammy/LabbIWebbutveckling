@@ -1,4 +1,5 @@
-﻿using LIW.Membership.Database.Enteties;
+﻿
+using LIW.Membership.Database.Enteties;
 using Microsoft.EntityFrameworkCore.Metadata.Internal;
 using System;
 using System.Collections.Generic;

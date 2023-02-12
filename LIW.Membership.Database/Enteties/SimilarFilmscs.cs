@@ -4,8 +4,8 @@ using System.ComponentModel.DataAnnotations.Schema;
 
 namespace LIW.Membership.Database.Enteties
 {
-	public class SimilarFilmscs
-	{
+	public class SimilarFilmscs : IReferenceEntity
+    {
         public int FilmId { get; set; }
         public int SimilarFilmId { get; set; }
 

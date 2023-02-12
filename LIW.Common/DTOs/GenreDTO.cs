@@ -15,4 +15,9 @@ namespace LIW.Common.DTOs
 
 		public List<FilmGenreDTO> FilmGenres { get; set; }
 	}
+    public class GenreCreateDTO
+    {
+        public string Name { get; set; }
+    }
+
 }

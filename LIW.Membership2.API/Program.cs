@@ -177,9 +177,13 @@ void ConfigureAutomapper()
         .ForMember(dest => dest.Genres, src => src.Ignore())
         .ForMember(dest => dest.SimilarFilms, src => src.Ignore());
 
+        cfg.CreateMap<Director, DirectorDTO>().ReverseMap();
+        cfg.CreateMap<DirectorCreateDTO, Director>().ReverseMap();
+
         //Genre
         cfg.CreateMap<FilmGenre, FilmGenreDTO>().ReverseMap();
-
+        cfg.CreateMap<Genre, GenreDTO>().ReverseMap();
+        cfg.CreateMap<GenreCreateDTO, Genre>();
         //SimilarFilms
 
         cfg.CreateMap<SimilarFilmscs, SimilarFilmsDTO>().ReverseMap();

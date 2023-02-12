@@ -12,8 +12,8 @@ namespace LIW.Common.DTOs
 
 		public int GenreId { get; set; }
 
-		public FilmDTO Film { get; set; }
+		public FilmDTO Film { get; set; } = null!;
 
-		public GenreDTO Genre { get; set; }
-	}
+		public GenreDTO Genre { get; set; } = null!;
+    }
 }

@@ -8,7 +8,7 @@ namespace LIW.Membership2.API.Util
 {
     public static class JsonSerializer
     {
-       //public static T RemoveLoops<T>(T obj)
+        //public static T RemoveLoops<T>(T obj)
         //{
         //    var json = JsonSerializer.Serialize(obj, new JsonSerializerOptions()
         //    {
