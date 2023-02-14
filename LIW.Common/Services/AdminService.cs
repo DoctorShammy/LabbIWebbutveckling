@@ -30,5 +30,37 @@ namespace LIW.Common.Services
                 throw;
             }
         }
+        public async Task<TDto?> SingleAsync<TDto>(string uri)
+        {
+            try
+            {
+                using HttpResponseMessage response = await _http.Client.GetAsync(uri);
+                response.EnsureSuccessStatusCode();
+                var result = JsonSerializer.Deserialize<TDto>(await response.Content.ReadAsStreamAsync(),
+                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }); 
+                return result ?? default;
+            }
+            catch (Exception ex)
+            {
+                throw;
+            }
+        }
+        public async Task CreateAsync<TDto>(string uri, TDto dto)
+        {
+            try
+            {
+                using StringContent jsonContent = new(JsonSerializer.Serialize(dto),Encoding.UTF8,"application/json");
+                using HttpResponseMessage response = await _http.Client.PostAsync(uri, jsonContent);
+                response.EnsureSuccessStatusCode();
+
+            }
+            catch (Exception ex)
+            {
+                throw; 
+                                
+            }
+        }
+
+       
     }
 }
