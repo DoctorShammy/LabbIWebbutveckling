@@ -11,7 +11,7 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIW.Membership.Database", "
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIW.Membership.API", "LIW.Membership.API\LIW.Membership.API.csproj", "{AC7BD210-BDC1-435D-95F3-063CFE83102A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LIW.Membership2.API", "LIW.Membership2.API\LIW.Membership2.API.csproj", "{9871AA30-B72B-4299-B1BB-05773ECAD27B}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "LIW.Membership2.API", "LIW.Membership2.API\LIW.Membership2.API.csproj", "{9871AA30-B72B-4299-B1BB-05773ECAD27B}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
