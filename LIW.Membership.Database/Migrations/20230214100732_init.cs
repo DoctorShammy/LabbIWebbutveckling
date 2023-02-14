@@ -3,6 +3,8 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 #nullable disable
 
+#pragma warning disable CA1814 // Prefer jagged arrays over multidimensional
+
 namespace LIW.Membership.Database.Migrations
 {
     /// <inheritdoc />
@@ -44,9 +46,9 @@ namespace LIW.Membership.Database.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Title = table.Column<string>(type: "nvarchar(50)", maxLength: 50, nullable: false),
-                    Released = table.Column<DateTime>(type: "datetime2", nullable: false),
+                    Released = table.Column<DateTime>(type: "datetime2", nullable: true),
                     DirectorId = table.Column<int>(type: "int", nullable: false),
-                    Free = table.Column<bool>(type: "bit", nullable: false),
+                    Free = table.Column<bool>(type: "bit", nullable: true),
                     Description = table.Column<string>(type: "nvarchar(200)", maxLength: 200, nullable: false),
                     FilmUrl = table.Column<string>(type: "nvarchar(1024)", maxLength: 1024, nullable: false)
                 },
@@ -106,6 +108,56 @@ namespace LIW.Membership.Database.Migrations
                         principalTable: "Films",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
+                });
+
+            migrationBuilder.InsertData(
+                table: "Directors",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Peter Jackson" },
+                    { 2, "The Wachowski Sisters" },
+                    { 3, "David Fincher" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Genres",
+                columns: new[] { "Id", "Name" },
+                values: new object[,]
+                {
+                    { 1, "Action" },
+                    { 2, "Sci-Fi" },
+                    { 3, "Fantasy" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "Films",
+                columns: new[] { "Id", "Description", "DirectorId", "FilmUrl", "Free", "Released", "Title" },
+                values: new object[,]
+                {
+                    { 1, "Hobbits", 1, "https://www.youtube.com/watch?v=V75dMMIW2B4&t=2s", null, null, "The Lord of the Rings: The Fellowship of the Ring" },
+                    { 2, "Mr Anderson", 2, "https://www.youtube.com/watch?v=vKQi3bBA1y8", null, null, "Matrix" },
+                    { 3, "First rule of Fight Club", 3, "https://www.youtube.com/watch?v=O1nDozs-LxI", null, null, "Fight Club" }
+                });
+
+            migrationBuilder.InsertData(
+                table: "FilmGenres",
+                columns: new[] { "FilmId", "GenreId" },
+                values: new object[,]
+                {
+                    { 1, 3 },
+                    { 2, 1 },
+                    { 2, 2 },
+                    { 3, 1 }
+                });
+
+            migrationBuilder.InsertData(
+                table: "SimilarFilms",
+                columns: new[] { "FilmId", "SimilarFilmId" },
+                values: new object[,]
+                {
+                    { 2, 1 },
+                    { 3, 1 }
                 });
 
             migrationBuilder.CreateIndex(

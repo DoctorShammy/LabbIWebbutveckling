@@ -1,5 +1,7 @@
 ﻿
 
+using Microsoft.EntityFrameworkCore;
+
 namespace LIW.Membership.Database.Extensions
 {
     public static class LIWContextExtensions
@@ -161,6 +163,10 @@ namespace LIW.Membership.Database.Extensions
             //        throw;
             //    }
             //}
+
         }
     }
 }
+    
+
+

@@ -16,11 +16,11 @@ namespace LIW.Membership.Database.Enteties
 		[MaxLength(50),Required]
 		public string Title { get; set; }
 
-		public DateTime Released { get; set; }
+		public DateTime? Released { get; set; }
 
 		public int DirectorId {get; set;}
 
-		public bool Free { get; set; }
+		public bool? Free { get; set; }
 
 		[MaxLength(200)]
 

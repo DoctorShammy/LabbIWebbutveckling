@@ -34,22 +34,14 @@ namespace LIW.Membership2.API.Controllers
         //}
 
         [HttpDelete]
-        public async Task<IResult> Delete(FilmGenreDTO dto)
+        public async Task<IResult> Delete(FilmCreateDTO dto)
         {
             try
             {
-                var exist = _db.Delete<FilmGenre, FilmGenreDTO>(dto);
-
-                if (!exist) return Results.NotFound();
-
-                var success = await _db.SaveChangesAsync();
-
-                if (!success) return Results.BadRequest();
-
-                return Results.NoContent();
+                _db.DeleteAsync<FilmGenre, FilmCreateDTO>(dto);
+                var success = await _db.SaveChangesAsync(); if (!success) return Results.BadRequest(); return Results.NoContent();
             }
             catch { }
-
             return Results.BadRequest();
         }
     }
