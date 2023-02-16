@@ -13,7 +13,7 @@ namespace LIW.Common.DTOs
 
 		public string Name { get; set; }
 
-		public List<FilmGenreDTO> FilmGenres { get; set; }
+		//public List<FilmGenreDTO> FilmGenres { get; set; }
 	}
     public class GenreCreateDTO
     {

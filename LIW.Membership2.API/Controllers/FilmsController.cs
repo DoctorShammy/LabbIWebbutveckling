@@ -25,7 +25,7 @@ namespace LIW.Membership2.API.Controllers
             try
             {
                 _db.Include<Director>();
-                // _db.Include<FilmGenre>();
+                //_db.Include<FilmGenre>();
 
                 List<FilmDTO>? film = await _db.GetAsync<Film, FilmDTO>();
 
@@ -46,7 +46,7 @@ namespace LIW.Membership2.API.Controllers
             try
             {
                 _db.Include<Director>();
-               // _db.Include<FilmGenre>();
+                //_db.Include<FilmGenre>();
                 var film = await _db.SingleAsync<Film, FilmDTO>(c => c.Id.Equals(id));
 
                 return Results.Ok(film);

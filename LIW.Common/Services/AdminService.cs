@@ -61,6 +61,38 @@ namespace LIW.Common.Services
             }
         }
 
-       
+        public async Task EditAsync<TDto>(string uri, TDto dto)
+        {
+            try
+            {
+                using StringContent jsonContent = new(JsonSerializer.Serialize(dto), Encoding.UTF8, "application/json");
+                using HttpResponseMessage response = await _http.Client.PutAsync(uri, jsonContent);
+                response.EnsureSuccessStatusCode();
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+
+            }
+        }
+
+        public async Task DeleteAsync<TDto>(string uri)
+        {
+            try
+            {
+                //using StringContent jsonContent = Encoding.UTF8, "application/json");
+                using HttpResponseMessage response = await _http.Client.DeleteAsync(uri);
+                response.EnsureSuccessStatusCode();
+
+            }
+            catch (Exception ex)
+            {
+                throw;
+
+            }
+        }
+
+
     }
 }
