@@ -15,7 +15,7 @@
 
     <EditForm Model="@Model" OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
         <DataAnnotationsValidator />        
-        <h4>@Page Course</h4>       
+        <h4>@Page Film</h4>       
         <div class="mb-3">
             @if (Page.Equals(PageType.Delete))
             {
@@ -74,7 +74,7 @@
     {
         try
         {
-            if (Page.Equals(PageType.AddFilm))
+            if (Page.Equals(PageType.Add))
                 await AdminService.CreateAsync<FilmDTO>("films", Model);
             else if (Page.Equals(PageType.Edit))
                 await AdminService.EditAsync<FilmDTO>($"films/{Model.Id}", Model);

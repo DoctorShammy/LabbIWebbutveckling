@@ -1,4 +1,4 @@
-﻿@*@inject IAdminService AdminService
+﻿@inject IAdminService AdminService
 
 @if (!string.IsNullOrEmpty(Alert))
 {
@@ -9,7 +9,7 @@
             </div>
         </div>
 }
-@if (Navigation == PageType.AddFilm)
+@if (Navigation == PageType.Add)
 {
     <ChangeDirector Page="@Navigation" OnChange="OnChange"></ChangeDirector>}
 
@@ -19,8 +19,8 @@
 
 <div class="d-flex me-1">
     <a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
-    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Films)">Films</button>
-    <button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.AddFilm)">Add Film</button>
+    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Content)">Director</button>
+    <button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.Add)">Add Director</button>
 </div>
 
 <DirectorIndex OnClick="OnClick" Model="Model"></DirectorIndex>
@@ -29,7 +29,7 @@
     
     List<DirectorDTO> Model{ get; set; } = new();
     string Alert { get; set; } = "";
-    string Navigation { get; set; } = PageType.Films;
+    string Navigation { get; set; } = PageType.Content;
     public DirectorDTO Director { get; set; } = new();
 
     protected override async Task OnInitializedAsync()
@@ -37,7 +37,7 @@
         Model = await AdminService.GetAsync<DirectorDTO>($"directors?freeOnly=false");
         Alert = "";
 
-        var directors = await AdminService.SingleAsync<DirectorDTO>($"directors/");
+        var directors = await AdminService.SingleAsync<DirectorDTO>($"directors/1");
 
         //await AdminService.CreateAsync<FilmDTO>($"films/", new FilmDTO
         //await AdminService.EditAsync<FilmDTO>($"films/5", new FilmDTO{
@@ -72,11 +72,11 @@
         {
             Alert = alert;
             Model = await AdminService.GetAsync<DirectorDTO>("directors");
-            ChangePageType(PageType.Films);
+            ChangePageType(PageType.Content);
         }
         catch
         {
-            Alert = "Couldn't create/edit/delete the film.";
+            Alert = "Couldn't create/edit/delete the director.";
         }
     } 
-}*@
+}

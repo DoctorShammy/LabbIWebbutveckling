@@ -13,8 +13,8 @@ namespace LIW.Admin.UI.Classes
 
     public static class PageType
     {
-        public static string Films => "Films";
-        public static string AddFilm => "AddFilm";
+        public static string Content => "Content";
+        public static string Add => "Add";
         public static string Edit => "Edit";
         public static string Delete => "Delete";
     }
