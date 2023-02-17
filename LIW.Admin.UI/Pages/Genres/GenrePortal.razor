@@ -93,7 +93,7 @@
 
 <div class="d-flex me-1">
     <a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
-    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Content)">Genre</button>
+    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Content)">Genres</button>
     <button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.Add)">Add Genre</button>
 </div>
 
@@ -108,10 +108,10 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Model = await AdminService.GetAsync<GenreDTO>($"genres?freeOnly=false");
+        Model = await AdminService.GetAsync<GenreDTO>($"genre?freeOnly=false");
         Alert = "";
 
-        var genres = await AdminService.SingleAsync<GenreDTO>($"Genres/1");
+        var genres = await AdminService.SingleAsync<GenreDTO>($"genre/1");
 
         //await AdminService.CreateAsync<FilmDTO>($"films/", new FilmDTO
         //await AdminService.EditAsync<FilmDTO>($"films/5", new FilmDTO{
@@ -135,7 +135,7 @@
     async Task OnClick(ClickModel model)
     {
         if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
-            Genre = await AdminService.SingleAsync<GenreDTO>($"genres/{model.Id}") ?? new();
+            Genre = await AdminService.SingleAsync<GenreDTO>($"genre/{model.Id}") ?? new();
 
         ChangePageType(model.PageType);
     }
@@ -145,7 +145,7 @@
         try
         {
             Alert = alert;
-            Model = await AdminService.GetAsync<GenreDTO>("genres");
+            Model = await AdminService.GetAsync<GenreDTO>("genre");
             ChangePageType(PageType.Content);
         }
         catch

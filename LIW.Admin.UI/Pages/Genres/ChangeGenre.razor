@@ -128,18 +128,18 @@
 
     protected override async Task OnInitializedAsync()
     {
-        Genres = await AdminService.GetAsync<GenreDTO>("genres");
+        Genres = await AdminService.GetAsync<GenreDTO>("genre");
     }
     private async Task OnFormSubmit()
     {
         try
         {
             if (Page.Equals(PageType.Add))
-                await AdminService.CreateAsync<GenreDTO>("genres", Model);
+                await AdminService.CreateAsync<GenreDTO>("genre", Model);
             else if (Page.Equals(PageType.Edit))
-                await AdminService.EditAsync<GenreDTO>($"genres/{Model.Id}", Model);
+                await AdminService.EditAsync<GenreDTO>($"genre/{Model.Id}", Model);
             else if (Page.Equals(PageType.Delete))
-                await AdminService.DeleteAsync<GenreDTO>($"genres/{Model.Id}");
+                await AdminService.DeleteAsync<GenreDTO>($"genre/{Model.Id}");
 
             await OnChange.InvokeAsync("");
         }
