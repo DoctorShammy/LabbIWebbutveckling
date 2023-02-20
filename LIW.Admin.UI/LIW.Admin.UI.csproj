@@ -9,6 +9,7 @@
   <ItemGroup>
     <Folder Include="Authentication\" />
     <Folder Include="Classes\" />
+    <Folder Include="Pages\SimilarFilms\" />
   </ItemGroup>
 
   <ItemGroup>

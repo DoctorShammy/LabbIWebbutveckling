@@ -5,11 +5,11 @@ namespace LIW.Membership2.API.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class GenreController : ControllerBase
+    public class GenresController : ControllerBase
     {
         private readonly IDbService _db;
 
-        public GenreController(IDbService db) => _db = db;
+        public GenresController(IDbService db) => _db = db;
 
         [HttpGet]
         public async Task<IResult> Get()
@@ -47,11 +47,11 @@ namespace LIW.Membership2.API.Controllers
             {
                 if (dto == null) return Results.BadRequest();
 
-                var genre = await _db.AddAsync<Genre, GenreCreateDTO>(dto);
+                var genres = await _db.AddAsync<Genre, GenreCreateDTO>(dto);
                 var success = await _db.SaveChangesAsync();
                 if (!success) return Results.BadRequest();
 
-                return Results.Created(_db.GetURI<Genre>(genre), genre);
+                return Results.Created(_db.GetURI<Genre>(genres), genres);
             }
 
             catch { }

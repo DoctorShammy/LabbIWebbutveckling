@@ -16,18 +16,7 @@
             }
             <ValidationMessage For="@(() => Model.Name)" />
         </div>
-        @*@if (!Page.Equals(PageType.Delete))
-        {
-            <InputSelect @bind-Value="Model.Id" class="form-control mb-3">
-                <option value=0>Director</option>
-
-                @foreach (var director in Directors)
-                {
-                    <option value="@director.Id">@director.Name</option>
-                }
-
-            </InputSelect>            
-        }*@
+ 
         <button type="submit" class="btn btn-@(Page.Equals(PageType.Delete) ? "danger" : "primary") rounded-0">@Page</button>
     </EditForm>
 </div>

@@ -15,9 +15,9 @@
         {
             <tr>
                 <td>@item.Title</td>
-                <td>@(item.Released)</td>
+                <td>@(item.Released.ToString("d"))</td>
                 <td>@item.DirectorId</td>
-                <td>@item.Free ? "Free": ""</td>
+                <td>@item.Free </td>
                 <td>@item.Description.Truncate(50)</td>
                 <td>@item.FilmUrl.Truncate(50)</td>
                 <td>
