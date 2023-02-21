@@ -5,7 +5,7 @@
     <EditForm Model="@Model" OnValidSubmit="@OnFormSubmit" class="mb-5 border border-1 border-secondary p-2 w-25">
         <DataAnnotationsValidator />
         <h4>@Page Genre</h4>
-        <div class="mb-3">
+       @* <div class="mb-3">
             @if (Page.Equals(PageType.Delete))
             {
                 <InputText id="name" class="form-control me-2" @bind-Value="Model.Name" disabled placeholder="Name"></InputText>
@@ -18,19 +18,32 @@
         </div>
   
         <button type="submit" class="btn btn-@(Page.Equals(PageType.Delete) ? "danger" : "primary") rounded-0">@Page</button>
+    </EditForm>*@
+        <div class="mb-3">           
+            @if (Page.Equals(PageType.Delete))
+            {
+                                <InputText id="title" class="form-control me-2" @bind-Value="Model.Name" disabled placeholder="Name"></InputText>
+            }            <ValidationMessage For="@(() => Model.Name)" />        </div>         @if (!Page.Equals(PageType.Delete))
+        {
+                        <div class="mb-3">                @if (Page.Equals(PageType.Edit))
+                {
+                                        <label for="title">Name</label>
+                }                <InputText id="title" class="form-control me-2" @bind-Value="Model.Name" placeholder="Name"></InputText>                <ValidationMessage For="@(() => Model.Name)" />            </div>
+        }        <button type="submit" class="btn btn-@(Page.Equals(PageType.Delete) ? "danger" : "primary") rounded-0">@Page</button>   
     </EditForm>
+
 </div>
 
 @code {
     [Parameter] public GenreDTO Model { get; set; } = new();
     [Parameter] public string Page { get; set; } = string.Empty;
     [Parameter] public EventCallback<string> OnChange { get; set; }
-    //List<GenreDTO> Genres { get; set; } = new();
+    List<GenreDTO> Genres { get; set; } = new();
 
-    //protected override async Task OnInitializedAsync()
-    //{
-    //    Genres = await AdminService.GetAsync<GenreDTO>("genres");
-    //}
+    protected override async Task OnInitializedAsync()
+    {
+        Genres = await AdminService.GetAsync<GenreDTO>("genres");
+    }
 
     private async Task OnFormSubmit()
     {

@@ -2,6 +2,7 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net.Http.Json;
 using System.Text;
 
 using System.Threading.Tasks;
@@ -92,7 +93,21 @@ namespace LIW.Common.Services
 
             }
         }
+		public async Task DeleteReferenceAsync<TDto>(string uri, TDto dto)
+		{
+			try
+			{
+				var requestMessage = new HttpRequestMessage(HttpMethod.Delete, uri);
+				requestMessage.Content = JsonContent.Create(dto);
+				using var response = await _http.Client.SendAsync(requestMessage);
+				response.EnsureSuccessStatusCode();
+				requestMessage.Dispose();
+			}
+			catch (Exception ex)
+			{
+				throw;
+			}
+		}
 
-
-    }
+	}
 }

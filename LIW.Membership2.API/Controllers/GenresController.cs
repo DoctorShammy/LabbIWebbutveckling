@@ -59,19 +59,20 @@ namespace LIW.Membership2.API.Controllers
             return Results.BadRequest();
         }
 
-        [HttpPut("{id}")]
-        public async Task<IResult> Put(int id, [FromBody] GenreDTO dto)
-        {
-            try
-            {
-                if (dto == null) return Results.BadRequest();
-                if (!id.Equals(dto.Id)) return Results.BadRequest(); var exists = await _db.SaveChangesAsync();
-                if (!exists) return Results.BadRequest(); _db.Update<Genre, GenreDTO>(dto.Id, dto); var success = await _db.SaveChangesAsync();
-                if (!success) return Results.BadRequest(); return Results.NoContent();
-            }
-            catch { }
-            return Results.BadRequest();
-        }
+        //[HttpPut("{id}")]
+        //public async Task<IResult> Put(int id, [FromBody] GenreDTO dto)
+        //{
+        //    try
+        //    {
+        //        if (dto == null) return Results.BadRequest();
+        //        if (!id.Equals(dto.Id)) return Results.BadRequest(); var exists = await _db.SaveChangesAsync();
+        //        if (!exists) return Results.BadRequest(); _db.Update<Genre, GenreDTO>(dto.Id, dto); var success = await _db.SaveChangesAsync();
+        //        if (!success) return Results.BadRequest(); return Results.NoContent();
+        //    }
+        //    catch { }
+        //    return Results.BadRequest();
+        //}
+        [HttpPut("{id}")] public async Task<IResult> Put(int id, [FromBody] GenreDTO dto) { try { if (dto == null) return Results.BadRequest(); if (!id.Equals(dto.Id)) return Results.BadRequest(); var exists = await _db.SaveChangesAsync(); if (!exists) return Results.BadRequest(); _db.Update<Genre, GenreDTO>(dto.Id, dto); var success = await _db.SaveChangesAsync(); if (!success) return Results.BadRequest(); return Results.NoContent(); } catch { } return Results.BadRequest(); }
 
         [HttpDelete("{id}")]
         public async Task<IResult> Delete(int id)

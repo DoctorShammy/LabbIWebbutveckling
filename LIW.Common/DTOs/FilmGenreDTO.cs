@@ -16,4 +16,8 @@ namespace LIW.Common.DTOs
 
 		public GenreDTO Genre { get; set; } = null!;
     }
+	public class FilmGenreCreateDTO 
+	{ public int FilmId { get; set; } 
+	  public int GenreId { get; set; } 
+	}
 }

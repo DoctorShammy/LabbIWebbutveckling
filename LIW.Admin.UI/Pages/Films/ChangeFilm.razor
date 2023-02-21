@@ -15,7 +15,15 @@
                 <InputText id="title" class="form-control me-2" @bind-Value="Model.Title" placeholder="Title"></InputText>
             }
             <ValidationMessage For="@(() => Model.Title)" />
-        </div>       
+        </div>
+
+        <div class="mb-3">
+            <InputDate id="released" class="form-control me-2" @bind-Value="Model.Released" placeholder="Released">
+
+            </InputDate>
+            <ValidationMessage For="@(() => Model.Released)" />
+        </div>
+
         @if (!Page.Equals(PageType.Delete))
         {
             <div class="mb-3">  

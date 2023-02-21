@@ -27,18 +27,35 @@ namespace LIW.Membership2.API.Controllers
             return Results.NotFound();
         }
 
-        //[HttpPost]
-        //public async Task<IResult> Post(int id)
-        //{
+		//[HttpPost]
+		//public async Task<IResult> Post(int id)
+		//{
 
-        //}
+		//}
+		[HttpPost] 
+        public async Task<IResult> Post(FilmGenreCreateDTO dto) 
+        { try 
+            { if (dto == null) return Results.BadRequest(); 
+                var filmgenre = await _db.AddAsync<FilmGenre, FilmGenreCreateDTO>(dto); 
+                var success = await _db.SaveChangesAsync(); 
+                if (!success) return Results.BadRequest(); 
+                return Results.Ok(); 
+            } 
 
-        [HttpDelete]
-        public async Task<IResult> Delete(FilmCreateDTO dto)
+            catch 
+            { 
+
+            }
+
+            return Results.NotFound(); 
+        }
+
+		[HttpDelete]
+        public async Task<IResult> Delete(FilmGenreCreateDTO dto)
         {
             try
             {
-                _db.DeleteAsync<FilmGenre, FilmCreateDTO>(dto);
+                _db.DeleteAsync<FilmGenre, FilmGenreCreateDTO>(dto);
                 var success = await _db.SaveChangesAsync(); if (!success) return Results.BadRequest(); return Results.NoContent();
             }
             catch { }

@@ -2,83 +2,69 @@
 
 @if (!string.IsNullOrEmpty(Alert))
 {
-    <div class="d-flex">
-        <div class="alert alert-danger alert-dismissible fade show" role="alert">
-            <strong>@Alert</strong>
-            <button type="button" @onclick="CloseAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-        </div>
-    </div>
+	<div class="d-flex">
+		<div class="alert alert-danger alert-dismissible fade show" role="alert">
+			<strong>@Alert</strong>
+			<button type="button" @onclick="CloseAlert" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+		</div>
+	</div>
 }
+
+
 @if (Navigation == PageType.Add)
 {
-    <ChangeFilmGenre Page="@Navigation" OnChange="OnChange"></ChangeFilmGenre>
+	<ChangeFilmGenre Page="@Navigation" OnChange="OnChange"></ChangeFilmGenre>
+}
+@if (Navigation == PageType.Delete)
+{
+	<ChangeFilmGenre Page="@Navigation" OnChange="OnChange" Model="FilmGenre"></ChangeFilmGenre>
 }
 
-@if (Navigation == PageType.Delete || Navigation == PageType.Edit)
-{
-    <ChangeFilmGenre Page="@Navigation" OnChange="OnChange" Model="FilmGenre"></ChangeFilmGenre>
-}
 
 <div class="d-flex me-1">
-    <a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
-    <button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Content)">FilmGenres</button>
-    <button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.Add)">Add FilmGenre</button>
+	<a href="/" class="btn btn-outline-secondary rounded-0 me-1">Home</a>
+	<button type="button" class="btn btn-outline-primary rounded-0 me-1" @onclick="()=>ChangePageType(PageType.Content)">FilmGenre</button>
+	<button type="button" class="btn btn-outline-success rounded-0" @onclick="()=>ChangePageType(PageType.Add)">Add FilmGenre</button>
 </div>
-
 <FilmGenreIndex OnClick="OnClick" Model="Model"></FilmGenreIndex>
 
 @code {
+	List<FilmGenreDTO> Model = new();
+	string Alert { get; set; } = "";
+	string Navigation { get; set; } = PageType.Content;
+	public FilmGenreDTO FilmGenre { get; set; } = new();
 
-    List<FilmGenreDTO> Model { get; set; } = new();
-    string Alert { get; set; } = "";
-    string Navigation { get; set; } = PageType.Content;
-    public FilmGenreDTO FilmGenre { get; set; } = new();
+	protected override async Task OnInitializedAsync()
+	{
+		Alert = "";
+		Model = await AdminService.GetAsync<FilmGenreDTO>("filmgenre");
+	}
 
-    protected override async Task OnInitializedAsync()
-    {
-        Model = await AdminService.GetAsync<FilmGenreDTO>($"filmgenre?freeOnly=false");
-        Alert = "";
+	void ChangePageType(string pageType) => Navigation = pageType;
 
-        var filmgrenres = await AdminService.SingleAsync<FilmGenreDTO>($"filmgenre/1");
+	void CloseAlert() => Alert = "";
 
-        //await AdminService.CreateAsync<FilmDTO>($"films/", new FilmDTO
-        //await AdminService.EditAsync<FilmDTO>($"films/5", new FilmDTO{
-        //await AdminService.DeleteAsync<FilmDTO>($"films/5");
-        //   {
-        //            Id = 5,
-        //            Title = "hohoho",
-        //;
-        //        Released = DateTime.Today,
-        //            Free = true,
-        //            Description = "EFGHI",
-        //            FilmUrl = "url",
-        //            DirectorId = 1
-        //    })
+	async Task OnClick(ClickReferenceModel model)
+	{
+		if (model.PageType.Equals(PageType.Delete))
+			FilmGenre.FilmId = model.firstId;
+			FilmGenre.GenreId = model.secondId;
 
-    }
+		
+		ChangePageType(model.PageType); 
+	}
 
-    void ChangePageType(string pageType) => Navigation = pageType;
-    void CloseAlert() => Alert = "";
-
-    async Task OnClick(ClickModel model)
-    {
-        if (model.PageType.Equals(PageType.Edit) || model.PageType.Equals(PageType.Delete))
-            FilmGenre = await AdminService.SingleAsync<FilmGenreDTO>($"filmgenre/{model.Id}") ?? new();
-
-        ChangePageType(model.PageType);
-    }
-
-    async Task OnChange(string alert)
-    {
-        try
-        {
-            Alert = alert;
-            Model = await AdminService.GetAsync<FilmGenreDTO>("filmgenre");
-            ChangePageType(PageType.Content);
-        }
-        catch
-        {
-            Alert = "Couldn't create/edit/delete the filmgenre.";
-        }
-    }
+	async Task OnChange(string alert)
+	{
+		try
+		{
+			Alert = alert;
+			Model = await AdminService.GetAsync<FilmGenreDTO>("filmgenre");
+			ChangePageType(PageType.Content);
+		}
+		catch
+		{
+			Alert = "Couldn't create/edit/delete the filmgenre.";
+		}
+	}
 }
