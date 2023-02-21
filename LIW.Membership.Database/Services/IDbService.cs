@@ -60,5 +60,8 @@ namespace LIW.Membership.Database.Services
 
         void Include<TEntity>() where TEntity : class;
         void DeleteAsync<T>(T similarFilm);
-    }
+		bool Delete<TReferenceEntity, TDto>(TDto dto)
+			where TReferenceEntity : class, IReferenceEntity
+			where TDto : class;
+	}
 }

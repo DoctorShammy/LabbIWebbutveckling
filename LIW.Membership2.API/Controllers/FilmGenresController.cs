@@ -55,7 +55,7 @@ namespace LIW.Membership2.API.Controllers
         {
             try
             {
-                _db.DeleteAsync<FilmGenre, FilmGenreCreateDTO>(dto);
+                _db.Delete<FilmGenre, FilmGenreCreateDTO>(dto);
                 var success = await _db.SaveChangesAsync(); if (!success) return Results.BadRequest(); return Results.NoContent();
             }
             catch { }

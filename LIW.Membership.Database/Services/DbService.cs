@@ -93,7 +93,21 @@ namespace LIW.Membership.Database.Services
             _db.Set<TEntity>().Remove(entity);
         }
 
-        public string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity
+		public bool Delete<TReferenceEntity, TDto>(TDto dto) where TReferenceEntity : class, IReferenceEntity where TDto : class 
+        { 
+            try 
+            { 
+                var entity = _mapper.Map<TReferenceEntity>(dto); 
+                if (entity is null) 
+                    return false; _db.Remove(entity); 
+            } 
+            catch 
+            {
+                throw; 
+            } 
+            return true; }
+
+		public string GetURI<TEntity>(TEntity entity) where TEntity : class, IEntity
 
         => $"/{typeof(TEntity).Name.ToLower()}s/{entity.Id}";
 

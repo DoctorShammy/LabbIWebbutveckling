@@ -24,7 +24,7 @@ namespace LIW.Common.DTOs
 
 		public string FilmUrl { get; set; }
 
-		public List<SimilarFilmsDTO> SimilarFilmscss { get; set; }
+		public List<SimilarFilmsDTO> SimilarFilms { get; set; }
 		public List<FilmGenreDTO> FilmGenres { get; set; } = new();
 	}
     public class FilmCreateDTO
